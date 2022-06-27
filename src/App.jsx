@@ -1,21 +1,24 @@
 import React from 'react';
 import {
   BrowserRouter,
-  Routes,
+  Switch,
   Route,
 } from 'react-router-dom';
 
-import ProductListing from './pages/ProductListing';
-import './App.scss';
 import Header from './components/Header';
+import ProductListing from './pages/ProductListing';
+
+import './App.scss';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/" element={<ProductListing />} />
-      </Routes>
+      <Switch>
+        <Route exact path="/" component={ProductListing} />
+        <Route exact path="/clothes" component={ProductListing} />
+        <Route exact path="/tech" component={ProductListing} />
+      </Switch>
     </BrowserRouter>
   );
 }
