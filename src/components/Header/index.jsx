@@ -3,6 +3,7 @@ import { graphql } from '@apollo/client/react/hoc';
 import { Link, withRouter } from 'react-router-dom';
 
 import categoriesQuery from '../../queries/categories';
+import Currency from '../Currency';
 
 import './style.scss';
 
@@ -31,6 +32,9 @@ class Header extends React.PureComponent {
               );
             })
           }
+        </div>
+        <div>
+          <Currency />
         </div>
       </div>
     );

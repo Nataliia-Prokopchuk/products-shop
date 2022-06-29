@@ -17,15 +17,19 @@ class ProductListing extends React.PureComponent {
         <div className="category">{prepareUrlToTitle(location.pathname)}</div>
         <div className="container-products">
           {
-            products.map((product) => (
-              <ProductItem
-                key={product.id}
-                imageUrl={product.productImageUrl}
-                productTitle={product.name}
-                productPrice={product.price}
-                inStock={product.inStock}
-              />
-            ))
+            products.map((product) => {
+              const price = product.prices.find((p) => p.currency.symbol === '¥');
+
+              return (
+                <ProductItem
+                  key={product.id}
+                  imageUrl={product.productImageUrl}
+                  productTitle={product.name}
+                  productPrice={`${price.currency.symbol} ${price.amount}`}
+                  inStock={product.inStock}
+                />
+              );
+            })
           }
         </div>
       </div>
@@ -39,20 +43,22 @@ const mapResultToProps = ({ data }) => (
       id: product.id,
       productImageUrl: product.gallery[0],
       name: product.name,
-      price: `${product.prices[0].currency.symbol} ${product.prices[0].amount}`,
+      prices: product.prices,
       inStock: product.inStock,
     })),
   } : null
 );
 
+const mapPropsToOptions = (props) => ({
+  variables: {
+    categoryName: prepareUrlToTitle(props.location.pathname),
+  },
+});
+
 export default withRouter(graphql(
   productsQuery,
   {
     props: mapResultToProps,
-    options: (props) => ({
-      variables: {
-        categoryName: prepareUrlToTitle(props.location.pathname),
-      },
-    }),
+    options: mapPropsToOptions,
   },
 )(ProductListing));
