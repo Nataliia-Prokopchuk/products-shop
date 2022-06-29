@@ -12,6 +12,7 @@ export default gql(`
         prices {
           currency {
             symbol
+            label
           }
           amount
         }
