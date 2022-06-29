@@ -10,7 +10,6 @@ class Currency extends React.PureComponent {
     super(props);
 
     this.state = {
-      currentSymbol: '$',
       focused: false,
     };
   }
@@ -27,10 +26,10 @@ class Currency extends React.PureComponent {
     });
   };
 
-  changeCurrency = (symbol) => () => {
-    this.setState({
-      currentSymbol: symbol,
-    });
+  updateCurrency = (ccy) => () => {
+    const { changeCurrency } = this.props;
+
+    changeCurrency(ccy);
 
     this.setState({
       focused: false,
@@ -38,8 +37,8 @@ class Currency extends React.PureComponent {
   };
 
   render() {
-    const { currentSymbol, focused } = this.state;
-    const { currencies = [] } = this.props;
+    const { focused } = this.state;
+    const { currencies = [], currency } = this.props;
 
     return (
       <div
@@ -52,17 +51,20 @@ class Currency extends React.PureComponent {
           className="currency"
           onClick={this.openDropdown}
         >
-          <div>{currentSymbol}</div>
+          <div>{currency.symbol}</div>
           <div className={`${focused ? 'icon' : 'down'}`}>^</div>
         </div>
         {
           focused ? (
             <div className="carrencies">
               {
-                currencies.map((currency) => (
-                  (currentSymbol !== currency.symbol) ? (
-                    <div onClick={this.changeCurrency(currency.symbol)}>
-                      {`${currency.symbol} ${currency.label}`}
+                currencies.map((ccy) => (
+                  (currency.symbol !== ccy.symbol) ? (
+                    <div
+                      key={ccy.symbol}
+                      onClick={this.updateCurrency(ccy)}
+                    >
+                      {`${ccy.symbol} ${ccy.label}`}
                     </div>
                   ) : null
                 ))

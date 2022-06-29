@@ -3,6 +3,7 @@ import { graphql } from '@apollo/client/react/hoc';
 import { Link, withRouter } from 'react-router-dom';
 
 import categoriesQuery from '../../queries/categories';
+import CurrencyContext from '../../context/CurrencyContext';
 import Currency from '../Currency';
 
 import './style.scss';
@@ -33,8 +34,17 @@ class Header extends React.PureComponent {
             })
           }
         </div>
+
         <div>
-          <Currency />
+          <CurrencyContext.Consumer>
+            {({ currency, changeCurrency }) => (
+              <Currency
+                currency={currency}
+                changeCurrency={changeCurrency}
+              />
+            )}
+          </CurrencyContext.Consumer>
+
         </div>
       </div>
     );
