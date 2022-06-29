@@ -1,0 +1,19 @@
+.block-clothes {
+  width: 70%;
+  min-width: 1240px;
+  margin: 0 auto;
+
+  .category {
+    font-size: 42px;
+    font-weight: 400;
+    margin-bottom: 86px;
+    text-transform: capitalize;
+  }
+
+  .container-products {
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    column-gap: 25px;
+    row-gap: 60px;
+  }
+}

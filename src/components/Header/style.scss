@@ -1,0 +1,37 @@
+.container-header {
+  width: 70%;
+  min-width: 1240px;
+  margin: 0 auto;
+  margin-bottom: 80px;
+
+  .container-categories {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .categories {
+      height: 100%;
+      padding: 30px 10px ;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 19.2px;
+      color: rgba(29, 31, 34, 1);
+      background-color: white;
+      border: 0;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+    
+      &:hover {
+        border-bottom: 1px solid rgb(65, 151, 86);
+        color: rgb(65, 151, 86);
+        font-weight: 600;
+      }
+    }
+    .action {
+      border-bottom: 1px solid rgba(94, 206, 123, 1);
+      color: rgba(94, 206, 123, 1);
+      font-weight: 600;
+    }
+  }
+}
