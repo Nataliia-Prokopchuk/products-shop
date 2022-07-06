@@ -10,6 +10,12 @@ import CurrencyContext from '../../context/CurrencyContext';
 import './style.scss';
 
 class ProductListing extends React.PureComponent {
+  navigateUrlProduct = (productId) => () => {
+    const { history } = this.props;
+
+    history.push(`/product-description/${productId}`);
+  };
+
   render() {
     const { location, products = [] } = this.props;
 
@@ -25,6 +31,7 @@ class ProductListing extends React.PureComponent {
                 return (
                   <ProductItem
                     key={product.id}
+                    navigateUrlProduct={this.navigateUrlProduct(product.id)}
                     imageUrl={product.productImageUrl}
                     productTitle={product.name}
                     productPrice={price ? `${price.currency.symbol} ${price.amount}` : ''}

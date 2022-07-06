@@ -1,0 +1,52 @@
+.product-block {
+  width: 70%;
+  margin: 0 auto;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 700px;
+  column-gap: 100px;
+  display: grid;
+
+  .description {
+    .title {
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 27px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 27px;
+      margin-bottom: 40px;
+    }
+
+    .block-price {
+      .title {
+        font-family: Roboto Condensed;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 18px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      .price {
+        font-family: Raleway;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 18px;
+        margin-bottom: 20px;
+        
+      }
+    }
+
+    .description-text {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+}

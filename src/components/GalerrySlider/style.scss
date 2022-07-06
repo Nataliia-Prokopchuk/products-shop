@@ -1,0 +1,39 @@
+.images-product {
+  width: 700px;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 100%;
+  display: grid;
+
+  .currentImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .slider {
+    width: 125px;
+    height: 100%;
+    overflow: auto;
+    padding-right: 13px;
+
+    .selected-photo {
+      border: 1px solid #5ECE7B;
+    }
+    
+    .productImg {
+      width: 100%;
+      cursor: pointer;
+      margin: 15px 0;
+     
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
