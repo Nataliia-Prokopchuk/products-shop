@@ -1,0 +1,39 @@
+.attributes {
+  .title-attr {
+    font-family: Roboto Condensed;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .item {
+    display: flex;
+
+    div {
+      height: 32px;
+      border: 1px solid black;
+      margin-right: 10px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+
+    .color {
+      border: 1px solid #d7d7d7;
+    }
+
+    .color:hover, .selected-field-color {
+      outline: 1px solid #5ECE7B;
+    }
+    
+    .no-color:hover, .selected-field {
+      background-color: black;
+      color: white;
+    }
+  }
+}

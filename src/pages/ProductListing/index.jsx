@@ -10,6 +10,12 @@ import CurrencyContext from '../../context/CurrencyContext';
 import './style.scss';
 
 class ProductListing extends React.PureComponent {
+  navigateUrlProduct = (productId) => () => {
+    const { history } = this.props;
+
+    history.push(`/product-description/${productId}`);
+  };
+
   render() {
     const { location, products = [] } = this.props;
 
@@ -25,7 +31,8 @@ class ProductListing extends React.PureComponent {
                 return (
                   <ProductItem
                     key={product.id}
-                    imageUrl={product.productImageUrl}
+                    navigateUrlProduct={this.navigateUrlProduct(product.id)}
+                    imageUrl={product.gallery[0]}
                     productTitle={product.name}
                     productPrice={price ? `${price.currency.symbol} ${price.amount}` : ''}
                     inStock={product.inStock}
@@ -40,21 +47,13 @@ class ProductListing extends React.PureComponent {
   }
 }
 
-const mapResultToProps = ({ data }) => (
-  (!data.loading) ? {
-    products: data.category.products.map((product) => ({
-      id: product.id,
-      productImageUrl: product.gallery[0],
-      name: product.name,
-      prices: product.prices,
-      inStock: product.inStock,
-    })),
-  } : null
-);
+const mapResultToProps = ({ data }) => ({
+  products: data.category?.products,
+});
 
 const mapPropsToOptions = (props) => ({
   variables: {
-    categoryName: prepareUrlToTitle(props.location.pathname),
+    categoryName: props.match.params.category || 'all',
   },
 });
 
