@@ -3,8 +3,17 @@ import React from 'react';
 import './style.scss';
 
 class AttributesProduct extends React.PureComponent {
+  selectField = (name, value) => {
+    const { selectedAttributes } = this.props;
+
+    return (
+      Object.keys(selectedAttributes).some((key) => (
+        (selectedAttributes[key] === value) && (key === name)))
+    );
+  };
+
   render() {
-    const { attributes } = this.props;
+    const { attributes, chooseAttributes } = this.props;
 
     return (
       attributes.map((attr) => (
@@ -16,13 +25,15 @@ class AttributesProduct extends React.PureComponent {
                 (attr.name === 'Color') ? (
                   <div
                     key={item.value}
-                    className="color"
+                    className={`color ${this.selectField(attr.name, item.value) ? 'selected-field-color' : ''}`}
                     style={{ backgroundColor: item.value }}
+                    onClick={chooseAttributes(attr.name, item.value)}
                   />
                 ) : (
                   <div
                     key={item.value}
-                    className="no-color"
+                    className={`no-color ${this.selectField(attr.name, item.value) ? 'selected-field' : ''}`}
+                    onClick={chooseAttributes(attr.name, item.value)}
                   >
                     {item.value}
                   </div>

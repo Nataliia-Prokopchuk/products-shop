@@ -32,7 +32,7 @@ class ProductListing extends React.PureComponent {
                   <ProductItem
                     key={product.id}
                     navigateUrlProduct={this.navigateUrlProduct(product.id)}
-                    imageUrl={product.productImageUrl}
+                    imageUrl={product.gallery[0]}
                     productTitle={product.name}
                     productPrice={price ? `${price.currency.symbol} ${price.amount}` : ''}
                     inStock={product.inStock}
@@ -47,21 +47,13 @@ class ProductListing extends React.PureComponent {
   }
 }
 
-const mapResultToProps = ({ data }) => (
-  (!data.loading) ? {
-    products: data.category.products.map((product) => ({
-      id: product.id,
-      productImageUrl: product.gallery[0],
-      name: product.name,
-      prices: product.prices,
-      inStock: product.inStock,
-    })),
-  } : null
-);
+const mapResultToProps = ({ data }) => ({
+  products: data.category?.products,
+});
 
 const mapPropsToOptions = (props) => ({
   variables: {
-    categoryName: prepareUrlToTitle(props.location.pathname),
+    categoryName: props.match.params.category || 'all',
   },
 });
 
