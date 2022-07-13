@@ -13,34 +13,36 @@ export class CartProvider extends React.PureComponent {
         product.id,
       );
 
-      if (cartProducts[newProductId]) {
-        this.setState({
-          cartProducts: {
-            ...cartProducts,
-            [newProductId]: {
-              ...product,
-              count: cartProducts[newProductId].count + 1,
-            },
-          },
-        });
-      } else {
-        this.setState({
-          cartProducts: {
-            ...cartProducts,
-            [newProductId]: { ...product },
-          },
-        });
-      }
+      const prepareProducts = (cartProducts[newProductId]) ? ({
+        ...cartProducts,
+        [newProductId]: {
+          ...product,
+          count: cartProducts[newProductId].count + 1,
+        },
+      }) : (
+        {
+          ...cartProducts,
+          [newProductId]: { ...product },
+        }
+      );
+
+      this.setState({
+        cartProducts: prepareProducts,
+      });
+
+      localStorage.setItem('cartProducts', JSON.stringify(prepareProducts));
     };
 
     this.state = {
-      cartProducts: {},
+      cartProducts: JSON.parse(localStorage.getItem('cartProducts')) || {},
       changeCartProducts: this.changeCartProducts,
     };
   }
 
   render() {
+    const { cartProducts } = this.state;
     const { children } = this.props;
+    console.log(cartProducts);
 
     return (
       <CartContext.Provider value={this.state}>
