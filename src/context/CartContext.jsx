@@ -7,12 +7,30 @@ export class CartProvider extends React.PureComponent {
 
     this.changeCartProducts = (product) => {
       const { cartProducts } = this.state;
-      this.setState({
-        cartProducts: {
-          ...cartProducts,
-          product,
-        },
-      });
+
+      const newProductId = Object.keys(product.selectedAttributes).reduce(
+        (accum, current) => `${accum}-${product.selectedAttributes[current]}`,
+        product.id,
+      );
+
+      if (cartProducts[newProductId]) {
+        this.setState({
+          cartProducts: {
+            ...cartProducts,
+            [newProductId]: {
+              ...product,
+              count: cartProducts[newProductId].count + 1,
+            },
+          },
+        });
+      } else {
+        this.setState({
+          cartProducts: {
+            ...cartProducts,
+            [newProductId]: { ...product },
+          },
+        });
+      }
     };
 
     this.state = {
