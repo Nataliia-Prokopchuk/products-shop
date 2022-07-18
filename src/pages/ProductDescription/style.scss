@@ -6,6 +6,14 @@
   column-gap: 100px;
   display: grid;
 
+  .validation {
+    color: rgb(185, 66, 66);
+    font-size: 11px;
+    text-align: end;
+    margin-top: -13px;
+    margin-bottom: 20px;
+  }
+
   .description {
     .title {
       font-size: 30px;

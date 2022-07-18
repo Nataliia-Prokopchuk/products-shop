@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { graphql } from '@apollo/client/react/hoc';
 
 import productQuery from '../../queries/product';
-import CurrencyContext from '../../context/CurrencyContext';
 import CartContext from '../../context/CartContext';
 import AttributesProduct from '../../components/AttributesProduct';
 import GalerrySlider from '../../components/GalerrySlider';
+import SelectedCurrency from '../../components/SelectedCurrency';
 import ActionButton from '../../components/ActionButton';
 
 import './style.scss';
@@ -19,6 +19,7 @@ class ProductDescription extends React.PureComponent {
     this.state = {
       selectedPhoto: props.gallery ? props.gallery[0] : '',
       selectedAttributes: {},
+      isValid: false,
     };
   }
 
@@ -50,23 +51,40 @@ class ProductDescription extends React.PureComponent {
     const {
       gallery = [],
       name,
+      id,
       brand,
       attributes = [],
       prices = [],
     } = this.props;
 
-    changeCartProducts({
-      gallery,
-      name,
-      brand,
-      attributes,
-      prices,
-      selectedAttributes,
-    });
+    if (Object.keys(selectedAttributes).length === attributes.length) {
+      this.setState({
+        isValid: false,
+      });
+      changeCartProducts({
+        gallery,
+        name,
+        id,
+        count: 1,
+        brand,
+        attributes,
+        prices,
+        selectedAttributes,
+      });
+    } else {
+      this.setState({
+        isValid: true,
+      });
+    }
   };
 
   render() {
-    const { selectedPhoto, selectedAttributes } = this.state;
+    const {
+      selectedPhoto,
+      selectedAttributes,
+      isValid,
+    } = this.state;
+
     const {
       gallery = [],
       name,
@@ -99,20 +117,7 @@ class ProductDescription extends React.PureComponent {
             />
             <div className="block-price">
               <div className="title">Price:</div>
-              <CurrencyContext.Consumer>
-                {({ currency }) => (
-                  prices.map((price) => (
-                    (price.currency.symbol === currency.symbol) ? (
-                      <div
-                        key={price.currency.symbol}
-                        className="price"
-                      >
-                        {`${price.currency.symbol} ${price.amount}`}
-                      </div>
-                    ) : null
-                  ))
-                )}
-              </CurrencyContext.Consumer>
+              <SelectedCurrency product={prices} />
             </div>
             <CartContext.Consumer>
               {({ changeCartProducts }) => (
@@ -123,6 +128,9 @@ class ProductDescription extends React.PureComponent {
                 />
               )}
             </CartContext.Consumer>
+            {
+              isValid ? <div className="validation"> Please, select attributes!</div> : null
+            }
             <div
               className="description-text"
             // eslint-disable-next-line react/no-danger
@@ -141,6 +149,7 @@ const mapPropsToOptions = (props) => ({
   variables: {
     productId: props.match.params.id,
   },
+  fetchPolicy: 'network-only',
 });
 
 export default withRouter(graphql(

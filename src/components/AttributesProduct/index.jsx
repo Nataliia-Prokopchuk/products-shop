@@ -17,7 +17,10 @@ class AttributesProduct extends React.PureComponent {
 
     return (
       attributes.map((attr) => (
-        <div key={attr.name} className="attributes">
+        <div
+          key={attr.name}
+          className="attributes"
+        >
           <div className="title-attr">{`${attr.name}:`}</div>
           <div className="item">
             {
