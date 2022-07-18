@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { graphql } from '@apollo/client/react/hoc';
 
 import productQuery from '../../queries/product';
-import CurrencyContext from '../../context/CurrencyContext';
 import CartContext from '../../context/CartContext';
 import AttributesProduct from '../../components/AttributesProduct';
 import GalerrySlider from '../../components/GalerrySlider';
+import SelectedCurrency from '../../components/SelectedCurrency';
 import ActionButton from '../../components/ActionButton';
 
 import './style.scss';
@@ -117,20 +117,7 @@ class ProductDescription extends React.PureComponent {
             />
             <div className="block-price">
               <div className="title">Price:</div>
-              <CurrencyContext.Consumer>
-                {({ currency }) => (
-                  prices.map((price) => (
-                    (price.currency.symbol === currency.symbol) ? (
-                      <div
-                        key={price.currency.symbol}
-                        className="price"
-                      >
-                        {`${price.currency.symbol} ${price.amount}`}
-                      </div>
-                    ) : null
-                  ))
-                )}
-              </CurrencyContext.Consumer>
+              <SelectedCurrency product={prices} />
             </div>
             <CartContext.Consumer>
               {({ changeCartProducts }) => (

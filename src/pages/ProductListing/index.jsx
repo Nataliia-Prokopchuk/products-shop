@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import productsQuery from '../../queries/products';
 import ProductItem from '../../components/ProductItem';
-import prepareUrlToTitle from '../../helpers';
+import { prepareUrlToTitle } from '../../helpers';
 import CurrencyContext from '../../context/CurrencyContext';
 
 import './style.scss';

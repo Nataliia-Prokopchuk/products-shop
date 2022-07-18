@@ -1,30 +1,58 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
+import { computeProductKey } from '../helpers';
 
 export class CartProvider extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.changeCartProducts = (product) => {
+    this.deleteProduct = (deleteProduct, cb = () => {}) => {
       const { cartProducts } = this.state;
 
-      const newProductId = Object.keys(product.selectedAttributes).reduce(
-        (accum, current) => `${accum}-${product.selectedAttributes[current]}`,
-        product.id,
-      );
+      const deleteProductKey = computeProductKey(deleteProduct);
 
-      const prepareProducts = (cartProducts[newProductId]) ? ({
+      const cartProductsCopy = { ...cartProducts };
+
+      if (cartProductsCopy[deleteProductKey]) {
+        delete cartProductsCopy[deleteProductKey];
+      }
+
+      localStorage.setItem('cartProducts', JSON.stringify(cartProductsCopy));
+
+      this.setState({
+        cartProducts: cartProductsCopy,
+      }, cb);
+    };
+
+    this.calculateCountProducts = (prevNumber, isPlus) => {
+      let number = prevNumber;
+
+      if (isPlus) {
+        number = prevNumber + 1;
+      }
+
+      if (prevNumber > 1 && !isPlus) {
+        number = prevNumber - 1;
+      }
+
+      return number;
+    };
+
+    this.changeCartProducts = (product, isPlus = true) => {
+      const { cartProducts } = this.state;
+
+      const newProductKey = computeProductKey(product);
+
+      const prepareProducts = (cartProducts[newProductKey]) ? {
         ...cartProducts,
-        [newProductId]: {
+        [newProductKey]: {
           ...product,
-          count: cartProducts[newProductId].count + 1,
+          count: this.calculateCountProducts(cartProducts[newProductKey].count, isPlus),
         },
-      }) : (
-        {
-          ...cartProducts,
-          [newProductId]: { ...product },
-        }
-      );
+      } : {
+        ...cartProducts,
+        [newProductKey]: product,
+      };
 
       this.setState({
         cartProducts: prepareProducts,
@@ -36,13 +64,12 @@ export class CartProvider extends React.PureComponent {
     this.state = {
       cartProducts: JSON.parse(localStorage.getItem('cartProducts')) || {},
       changeCartProducts: this.changeCartProducts,
+      deleteProduct: this.deleteProduct,
     };
   }
 
   render() {
-    const { cartProducts } = this.state;
     const { children } = this.props;
-    console.log(cartProducts);
 
     return (
       <CartContext.Provider value={this.state}>
