@@ -1,10 +1,22 @@
 .container-header {
-  width: 70%;
   min-width: 1240px;
-  margin: 0 auto;
   margin-bottom: 80px;
+  padding: 0 80px;
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background: white;
   justify-content: space-between;
+
+  .brand-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 
   .container-categories {
     height: 100%;
@@ -13,6 +25,7 @@
 
     .categories {
       height: 100%;
+      margin-right: 2px;
       padding: 30px 10px ;
       font-size: 16px;
       font-weight: 400;
@@ -35,5 +48,9 @@
       color: rgba(94, 206, 123, 1);
       font-weight: 600;
     }
+  }
+
+  .container-currency-cart {
+    display: flex;
   }
 }

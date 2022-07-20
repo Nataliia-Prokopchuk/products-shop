@@ -1,18 +1,28 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-
-import CartProduct from '../../components/CartProduct';
 import CartContext from '../../context/CartContext';
-import Results from '../../components/Result';
 import { computeSumCountProducts } from '../../helpers';
-
+import ActionButton from '../ActionButton';
+import CartProduct from '../CartProduct';
+import Results from '../Result';
 import './style.scss';
 
-class Cart extends React.PureComponent {
+class MiniCartView extends React.PureComponent {
+  openCart = () => {
+    const { history } = this.props;
+
+    history.push('/cart');
+  };
+
   render() {
+    const { count } = this.props;
+
     return (
-      <div className="container-cart">
-        <div className="cart">Cart</div>
+      <div className="mini-cart-view">
+        <div className="bag">
+          <b>My Bag,</b>
+          {` ${count} items`}
+        </div>
         <CartContext.Consumer>
           {({
             cartProducts,
@@ -33,7 +43,7 @@ class Cart extends React.PureComponent {
                 }
                 <Results
                   cartProducts={cartProducts}
-                  isMiniCart={false}
+                  isMiniCart
                 />
               </>
             ) : (
@@ -41,9 +51,18 @@ class Cart extends React.PureComponent {
             )
           )}
         </CartContext.Consumer>
+        <div className="buttons">
+          <ActionButton
+            className="view"
+            title="view"
+            onClick={this.openCart}
+          />
+          <ActionButton title="check out" />
+        </div>
       </div>
+
     );
   }
 }
 
-export default withRouter(Cart);
+export default withRouter(MiniCartView);

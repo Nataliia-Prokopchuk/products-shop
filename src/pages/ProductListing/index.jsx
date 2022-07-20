@@ -31,6 +31,7 @@ class ProductListing extends React.PureComponent {
                 return (
                   <ProductItem
                     key={product.id}
+                    product={product}
                     navigateUrlProduct={this.navigateUrlProduct(product.id)}
                     imageUrl={product.gallery[0]}
                     productTitle={product.name}
