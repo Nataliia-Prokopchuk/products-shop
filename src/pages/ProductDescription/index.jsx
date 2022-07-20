@@ -124,7 +124,7 @@ class ProductDescription extends React.PureComponent {
                 <ActionButton
                   title={inStock ? 'Add to cart' : 'Out of stock'}
                   isDisabled={!inStock}
-                  addInCart={this.addInCart(changeCartProducts)}
+                  onClick={this.addInCart(changeCartProducts)}
                 />
               )}
             </CartContext.Consumer>

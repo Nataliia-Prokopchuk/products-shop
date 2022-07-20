@@ -8,7 +8,7 @@ class ActionButton extends React.PureComponent {
       title,
       isDisabled,
       className = '',
-      addInCart,
+      onClick,
     } = this.props;
 
     return (
@@ -16,7 +16,7 @@ class ActionButton extends React.PureComponent {
         type="button"
         className={`action-button ${className}`}
         disabled={isDisabled}
-        onClick={addInCart}
+        onClick={onClick}
       >
         {title}
       </button>
