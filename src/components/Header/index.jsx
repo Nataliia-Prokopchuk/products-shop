@@ -3,12 +3,19 @@ import { graphql } from '@apollo/client/react/hoc';
 import { Link, withRouter } from 'react-router-dom';
 
 import categoriesQuery from '../../queries/categories';
-import CurrencyContext from '../../context/CurrencyContext';
+import Brand from '../../assets/icons/brand.svg';
 import Currency from '../Currency';
+import MiniCart from '../MiniCart';
 
 import './style.scss';
 
 class Header extends React.PureComponent {
+  openMainPage = () => {
+    const { history } = this.props;
+
+    history.push('/');
+  };
+
   render() {
     const { categories = [], location } = this.props;
 
@@ -34,17 +41,12 @@ class Header extends React.PureComponent {
             })
           }
         </div>
-
-        <div>
-          <CurrencyContext.Consumer>
-            {({ currency, changeCurrency }) => (
-              <Currency
-                currency={currency}
-                changeCurrency={changeCurrency}
-              />
-            )}
-          </CurrencyContext.Consumer>
-
+        <div className="brand-header" onClick={this.openMainPage}>
+          <img src={Brand} alt="brand" />
+        </div>
+        <div className="container-currency-cart">
+          <Currency />
+          <MiniCart />
         </div>
       </div>
     );

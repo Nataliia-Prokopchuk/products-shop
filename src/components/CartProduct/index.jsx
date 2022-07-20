@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 
 import AttributesProduct from '../AttributesProduct';
 import SelectedCurrency from '../SelectedCurrency';
 import MiniSlider from '../MiniSlider';
-import CurrencyContext from '../../context/CurrencyContext';
 
 import './style.scss';
 

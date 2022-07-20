@@ -9,10 +9,12 @@ export class CurrencyProvider extends React.PureComponent {
       this.setState({
         currency,
       });
+
+      localStorage.setItem('currency', JSON.stringify(currency));
     };
 
     this.state = {
-      currency: {
+      currency: JSON.parse(localStorage.getItem('currency')) || {
         symbol: '$',
         label: 'USD',
       },

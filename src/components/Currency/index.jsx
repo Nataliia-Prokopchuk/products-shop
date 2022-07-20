@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from '@apollo/client/react/hoc';
 import { withRouter } from 'react-router-dom';
 import currenciesQuery from '../../queries/currencies';
+import CurrencyContext from '../../context/CurrencyContext';
 
 import './style.scss';
 
@@ -26,9 +27,7 @@ class Currency extends React.PureComponent {
     });
   };
 
-  updateCurrency = (ccy) => () => {
-    const { changeCurrency } = this.props;
-
+  updateCurrency = (ccy, changeCurrency) => () => {
     changeCurrency(ccy);
 
     this.setState({
@@ -36,9 +35,9 @@ class Currency extends React.PureComponent {
     });
   };
 
-  render() {
+  renderCurrency = (currency, changeCurrency) => {
     const { focused } = this.state;
-    const { currencies = [], currency } = this.props;
+    const { currencies = [] } = this.props;
 
     return (
       <div
@@ -62,7 +61,7 @@ class Currency extends React.PureComponent {
                   (currency.symbol !== ccy.symbol) ? (
                     <div
                       key={ccy.symbol}
-                      onClick={this.updateCurrency(ccy)}
+                      onClick={this.updateCurrency(ccy, changeCurrency)}
                     >
                       {`${ccy.symbol} ${ccy.label}`}
                     </div>
@@ -73,6 +72,16 @@ class Currency extends React.PureComponent {
           ) : null
         }
       </div>
+    );
+  };
+
+  render() {
+    return (
+      <CurrencyContext.Consumer>
+        {({ currency, changeCurrency }) => (
+          this.renderCurrency(currency, changeCurrency)
+        )}
+      </CurrencyContext.Consumer>
     );
   }
 }
