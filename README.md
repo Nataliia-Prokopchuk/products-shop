@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Pre requirenments
+## Pre requirements
 Create `.env` file within the root folder, copy all fields from `.env.example` to the `.env` file.
 
 ## Available Scripts
