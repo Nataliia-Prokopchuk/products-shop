@@ -33,10 +33,7 @@ class ProductListing extends React.PureComponent {
                     key={product.id}
                     product={product}
                     navigateUrlProduct={this.navigateUrlProduct(product.id)}
-                    imageUrl={product.gallery[0]}
-                    productTitle={product.name}
                     productPrice={price ? `${price.currency.symbol} ${price.amount}` : ''}
-                    inStock={product.inStock}
                   />
                 );
               })
