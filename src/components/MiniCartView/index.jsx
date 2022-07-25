@@ -1,10 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+
 import CartContext from '../../context/CartContext';
 import { computeSumCountProducts } from '../../helpers';
 import ActionButton from '../ActionButton';
 import CartProduct from '../CartProduct';
 import Results from '../Result';
+
 import './style.scss';
 
 class MiniCartView extends React.PureComponent {

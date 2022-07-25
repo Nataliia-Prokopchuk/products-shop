@@ -3,3 +3,7 @@ body {
   padding: 0;
   padding-top: 160px;
 }
+
+body.hidden-overflow {
+  overflow: hidden;
+}

@@ -13,7 +13,7 @@ class AttributesProduct extends React.PureComponent {
   };
 
   render() {
-    const { attributes, chooseAttributes } = this.props;
+    const { attributes, chooseAttributes = () => {} } = this.props;
 
     return (
       attributes.map((attr) => (

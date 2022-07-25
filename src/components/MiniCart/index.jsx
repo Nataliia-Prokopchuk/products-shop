@@ -18,11 +18,16 @@ class MiniCart extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { focused } = this.state;
     const { location } = this.props;
 
     if (prevProps.location.pathname !== location.pathname) {
       this.closeDropdown();
     }
+
+    document.body.className = focused
+      ? 'hidden-overflow'
+      : '';
   }
 
   openDropdown = () => {

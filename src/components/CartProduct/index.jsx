@@ -19,17 +19,6 @@ class CartProduct extends React.PureComponent {
     changeCartProducts(product, false);
   };
 
-  changeSelectedAttributes = (key, value) => () => {
-    const { changeCartProducts, deleteProduct, product } = this.props;
-
-    const productCopy = { ...product };
-
-    deleteProduct(product, () => {
-      productCopy.selectedAttributes[key] = value;
-      changeCartProducts(productCopy);
-    });
-  };
-
   deleteProducts = () => {
     const { deleteProduct, product } = this.props;
 
@@ -45,13 +34,12 @@ class CartProduct extends React.PureComponent {
       <div className="product-cart">
         <div className="first-block">
           <div>
-            <div className="title">{product.name}</div>
             <div className="brand">{product.brand}</div>
+            <div className="title">{product.name}</div>
             <SelectedCurrency product={product.prices} />
             <AttributesProduct
               attributes={product.attributes}
               selectedAttributes={product.selectedAttributes}
-              chooseAttributes={this.changeSelectedAttributes}
             />
           </div>
           <div className="delete-product" onClick={this.deleteProducts}>Delete</div>
