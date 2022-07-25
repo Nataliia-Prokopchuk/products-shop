@@ -26,7 +26,7 @@ class Results extends React.PureComponent {
             isMiniCart ? null : (
               <>
                 <div className="title">Tax 21%:</div>
-                <div className="value">{`${currency.symbol}${(productsSum * 0.21).toFixed(2)}`}</div>
+                <div className="value">{`${currency.symbol} ${(productsSum * 0.21).toFixed(2)}`}</div>
                 <div className="title">Quantity:</div>
                 <div className="value">{`${computeSumCountProducts(cartProducts)}`}</div>
               </>
