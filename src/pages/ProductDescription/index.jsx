@@ -2,6 +2,7 @@ import React from 'react';
 
 import { withRouter } from 'react-router-dom';
 import { graphql } from '@apollo/client/react/hoc';
+import parse from 'html-react-parser';
 
 import productQuery from '../../queries/product';
 import CartContext from '../../context/CartContext';
@@ -91,7 +92,7 @@ class ProductDescription extends React.PureComponent {
       brand,
       attributes = [],
       prices = [],
-      description,
+      description = '',
       inStock,
     } = this.props;
 
@@ -131,11 +132,9 @@ class ProductDescription extends React.PureComponent {
             {
               isValid ? <div className="validation"> Please, select attributes!</div> : null
             }
-            <div
-              className="description-text"
-            // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{ __html: description }}
-            />
+            <div className="description-text">
+              {parse(description)}
+            </div>
           </div>
         </div>
       </div>

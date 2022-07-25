@@ -2,6 +2,7 @@
   width: 350px;
   max-height: 677px;
   overflow-y: auto;
+  overflow-x: hidden;
   position: absolute;
   top: 81px;
   right: -45px;
@@ -48,6 +49,15 @@
     }
   }
 
+  .product-cart {
+    .title {
+      margin-bottom: 15px;
+    }
+  
+    .brand {
+      margin-bottom: 0px;
+    }
+  }
 
   .product-cart {
     .title, .brand, .price {

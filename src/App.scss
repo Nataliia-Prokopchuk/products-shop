@@ -1,6 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Raleway;
   padding-top: 160px;
+}
+
+body.hidden-overflow {
+  overflow: hidden;
 }
